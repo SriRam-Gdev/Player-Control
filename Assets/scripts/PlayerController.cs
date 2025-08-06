@@ -6,7 +6,8 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     private float speed = 10f; 
-    private Rigidbody PlayerMax;// Speed of the player movement
+    private Rigidbody PlayerMax;
+    public float zbound = 6;// Speed of the player movement
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -22,5 +23,14 @@ public class PlayerController : MonoBehaviour
 
         PlayerMax.AddForce(Vector3.right * speed * HorizontalInput);
         PlayerMax.AddForce(Vector3.forward * speed * VerticalInput);
+
+        if (transform.position.z < -zbound)
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y, -zbound);
+        }
+        if (transform.position.z > zbound)
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y, zbound);
+        }
     }
 }
